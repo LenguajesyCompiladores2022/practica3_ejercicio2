@@ -29,23 +29,12 @@ import static lyc.compiler.constants.Constants.*;
 %}
 
 
-LineTerminator = \r|\n|\r\n
-InputCharacter = [^\r\n]
-Identation =  [ \t\f]
+LineTerminator 		= \r|\n|\r\n
+Identation 			=  [ \t\f]
+WhiteSpace 			= {LineTerminator} | {Identation}
 
-Plus = "+"
-Mult = "*"
-Sub = "-"
-Div = "/"
-Assig = "="
-OpenBracket = "("
-CloseBracket = ")"
-Letter = [a-zA-Z]
-Digit = [0-9]
-
-WhiteSpace = {LineTerminator} | {Identation}
-Identifier = {Letter} ({Letter}|{Digit})*
-IntegerConstant = {Digit}+
+PARENTESIS_ABRE 	= "("
+PARENTESIS_CIERRA 	= ")"
 
 %%
 
@@ -53,22 +42,10 @@ IntegerConstant = {Digit}+
 /* keywords */
 
 <YYINITIAL> {
-  /* identifiers */
-  {Identifier}                             { return symbol(ParserSym.IDENTIFIER, yytext()); }
-  /* Constants */
-  {IntegerConstant}                        { return symbol(ParserSym.INTEGER_CONSTANT, yytext()); }
-
-  /* operators */
-  {Plus}                                    { return symbol(ParserSym.PLUS); }
-  {Sub}                                     { return symbol(ParserSym.SUB); }
-  {Mult}                                    { return symbol(ParserSym.MULT); }
-  {Div}                                     { return symbol(ParserSym.DIV); }
-  {Assig}                                   { return symbol(ParserSym.ASSIG); }
-  {OpenBracket}                             { return symbol(ParserSym.OPEN_BRACKET); }
-  {CloseBracket}                            { return symbol(ParserSym.CLOSE_BRACKET); }
-
-  /* whitespace */
-  {WhiteSpace}                   { /* ignore */ }
+	{PARENTESIS_ABRE}		{ return symbol(ParserSym.PARENTESIS_ABRE, yytext()); }
+	{PARENTESIS_CIERRA}		{ return symbol(ParserSym.PARENTESIS_CIERRA, yytext()); }
+  	/* whitespace */
+  	{WhiteSpace}			{ /* ignore */ }
 }
 
 
